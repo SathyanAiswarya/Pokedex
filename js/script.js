@@ -1,19 +1,28 @@
-let pokemonList = 
-[
-    { name : 'Ivysaur' , height : 1 ,types : ['Monster  , Grass']}, 
-    { name : 'Blastoise' , height : 1.6 , types : ['Monster, Water 1']},
-    { name : 'Sandslash' , height : 1 , types : ['Field']}
-];
+let pokemonRepository =  (function (){
+    let pokemonList = 
+    [
+        { name : 'Ivysaur' , height : 1 ,types : ['Monster  , Grass']}, 
+        { name : 'Blastoise' , height : 1.6 , types : ['Monster, Water 1']},
+        { name : 'Sandslash' , height : 1 , types : ['Field']}
+    ];
 
-for ( let i=0; i< pokemonList.length; i++ )
-{
-    document.write("<br>");
-    if( pokemonList[i].height > 1.5)
-    {
-        document.write(`<p> Name is "${pokemonList[i].name}" , its height is ${pokemonList[i].height} . Wow its s big Pokemon !! and types are "${pokemonList[i].types}" </p>`);
+    function getAll (){
+        return pokemonList;
     }
-    else{
-        document.write(`<p> Name is "${pokemonList[i].name}" , its height is ${pokemonList[i].height} . And types are "${pokemonList[i].types}"</p>`);
+
+    function add(newPokemon){
+        return pokemonList.push(newPokemon);
     }
-}
+    return{
+    getAll:  getAll,
+    add: add
+    };
+
+})();
+
+pokemonRepository.getAll().forEach((pokemonItems ) => (document.write (`<p> Name is "${pokemonItems.name}" , its height is ${pokemonItems.height} . And types are "${pokemonItems.types}"</p>`)));
+
+
+
+
 
