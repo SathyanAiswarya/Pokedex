@@ -1,30 +1,6 @@
 let pokemonRepository = (() => {
   let pokemonList = [];
 
-  const getAll = () => {
-    return pokemonList;
-  }
-
-  const add = (newPokemon) => {
-    return pokemonList.push(newPokemon);
-  }
-
-
-
-  const addListItem = (pokemon) => {
-    let pokemonList = document.querySelector('.pokemon_list');
-    let listItem = document.createElement('li');
-    let button = document.createElement('button');
-    button.innerText = pokemon.name;
-    button.classList.add('pokemon-name');
-    listItem.appendChild(button);
-    pokemonList.appendChild(listItem);
-
-    button.addEventListener('click', () => {
-      showDetails(pokemon);
-    })
-  }
-
   const loadList = () => {
     return fetch('https://pokeapi.co/api/v2/pokemon/?limit=150',
       {
@@ -48,6 +24,114 @@ let pokemonRepository = (() => {
       });
   }
 
+  const add = (newPokemon) => {
+    return pokemonList.push(newPokemon);
+  }
+
+  const getAll = () => {
+    return pokemonList;
+  }
+
+  const addListItem = (pokemon) => {
+    let pokemonList = document.querySelector('.pokemon_list');
+    let listItem = document.createElement('li');
+    listItem.classList.add('pokemon_list_items')
+    let button = document.createElement('button');
+    let pokemonName = pokemon.name.toUpperCase();
+    button.innerText = pokemonName;
+    button.classList.add('pokemon-name');
+    listItem.appendChild(button);
+    pokemonList.appendChild(listItem);
+
+  //   button.addEventListener('click', () => {
+  //     showDetails(pokemon).then((itemDetails) => {
+  //       console.log(itemDetails.types);
+  //       const typeNames = itemDetails.types.map((type) => {
+  //         return type.type.name;
+  //       })
+  //       console.log(typeNames);
+  //       showModal(pokemon.name, itemDetails.image, typeNames );
+  //   })
+  //   })
+  // } for printing with types 
+
+  button.addEventListener('click', () => {
+        showDetails(pokemon).then((itemDetails) => {
+          showModal(pokemonName, itemDetails.image, itemDetails.height );
+      })
+      })
+    } 
+
+  const showModal = (title,url,text) => {
+    
+    let alreadyOpenedModals = document.getElementsByClassName('modal-container');
+    console.log(alreadyOpenedModals);
+    if(alreadyOpenedModals && alreadyOpenedModals.length>0){
+      alreadyOpenedModals[0].parentElement.removeChild(alreadyOpenedModals[0]);
+      
+    }
+    let body = document.querySelector ('body');
+    let modalContainer = document.createElement('div');
+    modalContainer.classList.add('modal-container')
+    body.appendChild(modalContainer);
+
+    modalContainer.innerHTML = '';
+    let modal = document.createElement('div');
+     modal.classList.add('modal');
+
+      let closeButtonElement = document.createElement('button');
+      closeButtonElement.classList.add('modal-close');
+      closeButtonElement.innerText = 'Close';
+      closeButtonElement.addEventListener('click', hideModal); // for close button
+
+      let titleElement = document.createElement('h1');
+      titleElement.innerText = title;
+
+      let imageElement = document.createElement('img');
+      imageElement.src = url;
+
+      let contentElement = document.createElement('p');
+      contentElement.innerText = text;
+
+      modal.appendChild(closeButtonElement);
+      modal.appendChild(titleElement);
+      modal.appendChild(contentElement);
+      modal.appendChild(imageElement);
+      modalContainer.appendChild(modal);
+      
+      function hideModal() {
+        if (modalContainer.parentElement) {  
+            modalContainer.parentElement.removeChild(modalContainer);
+            // sometimes escape will invoke 2 times. if escape click happens 2 times the parentelement 
+            // will ne null .in such cases either we use 'If condition' or we will use '?' after 
+            //parentElement. 
+            //code: modalContainer.parentElement?.removeChild(modalContainer);
+        }
+        
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalContainer.classList.contains('modal-container')) {
+            hideModal();  
+        } // for escape key
+    });
+   
+    window.addEventListener('click', (e) => {
+           if ( modalContainer.classList.contains('modal-container')) {
+        hideModal();  
+    } // for outside click
+    });
+}
+
+
+
+  const showDetails = (pokemon) => {
+     return loadDetails(pokemon).then((item) => {
+      return item;
+  });
+  }
+  
+
   const loadDetails = (item) => {
     let url = item.detailsUrl;
     return fetch(url, {
@@ -57,24 +141,21 @@ let pokemonRepository = (() => {
         return response.json();
       })
       .then((details) => {
-        item.image = details.sprites.front_default;
-        item.height = details.height;
-        item.types = details.types;
+        const itemDetails={
+            image : details.sprites.front_default,
+            height :details.height,
+            types : details.types
+        }
+
+        return itemDetails;
 
       })
       .catch((rejected) => {
         document.write('The requested Pokemon doesn\'t exists. The error is :', rejected);
       })
   }
-  const showDetails = (pokemon) => {
-    loadDetails(pokemon).then(() => {
-      console.log(pokemon);
-    });
-  }
-
-
-
-  return {
+  
+return {
     getAll: getAll,
     add: add,
     addListItem: addListItem,
