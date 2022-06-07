@@ -71,6 +71,9 @@ body {
   /* this is used to center the modal */
 
   text-align: center;
+  display: none;
+}
+.is-visible {
   display: grid;
 }
 
