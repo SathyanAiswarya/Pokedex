@@ -99,16 +99,6 @@ let pokemonRepository = (() => {
       modal.appendChild(imageElement);
       modalContainer.appendChild(modal);
       
-      function hideModal() {
-        if (modalContainer.parentElement) {  
-            modalContainer.parentElement.removeChild(modalContainer);
-            // sometimes escape will invoke 2 times. if escape click happens 2 times the parentelement 
-            // will ne null .in such cases either we use 'If condition' or we will use '?' after 
-            //parentElement. 
-            //code: modalContainer.parentElement?.removeChild(modalContainer);
-        }
-        
-    }
 
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modalContainer.classList.contains('modal-container')) {
@@ -123,6 +113,12 @@ let pokemonRepository = (() => {
     });
 }
 
+function hideModal() {
+  let modalContainer = document.querySelector('.modal-container')    
+  modalContainer.classList.remove("is-visible");
+  modalContainer.parentElement.removeChild(modalContainer);
+     
+}
 
 
   const showDetails = (pokemon) => {
