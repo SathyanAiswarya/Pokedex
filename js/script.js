@@ -64,12 +64,7 @@ let pokemonRepository = (() => {
 
   const showModal = (title,url,text) => {
     
-    let alreadyOpenedModals = document.getElementsByClassName('modal-container');
-    console.log(alreadyOpenedModals);
-    if(alreadyOpenedModals && alreadyOpenedModals.length>0){
-      alreadyOpenedModals[0].parentElement.removeChild(alreadyOpenedModals[0]);
-      
-    }
+
     let body = document.querySelector ('body');
     let modalContainer = document.createElement('div');
     modalContainer.classList.add('modal-container')
