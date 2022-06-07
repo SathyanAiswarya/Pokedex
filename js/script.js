@@ -106,11 +106,6 @@ let pokemonRepository = (() => {
         } // for escape key
     });
    
-    window.addEventListener('click', (e) => {
-           if ( modalContainer.classList.contains('modal-container')) {
-        hideModal();  
-    } // for outside click
-    });
 }
 
 function hideModal() {
@@ -120,6 +115,10 @@ function hideModal() {
      
 }
 
+window.addEventListener('click', (e) => {
+  let modalContainer = document.querySelector('.modal-container');
+     if ( modalContainer && !modalContainer.contains(e.target) && (e.tagert!== modalContainer )) {
+  hideModal();  
 
   const showDetails = (pokemon) => {
      return loadDetails(pokemon).then((item) => {
