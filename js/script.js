@@ -67,7 +67,8 @@ let pokemonRepository = (() => {
 
     let body = document.querySelector ('body');
     let modalContainer = document.createElement('div');
-    modalContainer.classList.add('modal-container')
+    modalContainer.classList.add('modal-container');
+    modalContainer.classList.add('is-visible');
     body.appendChild(modalContainer);
 
     modalContainer.innerHTML = '';
@@ -116,6 +117,8 @@ window.addEventListener('click', (e) => {
   let modalContainer = document.querySelector('.modal-container');
      if ( modalContainer && !modalContainer.contains(e.target) && (e.tagert!== modalContainer )) {
   hideModal();  
+} // for outside click
+});
 
   const showDetails = (pokemon) => {
      return loadDetails(pokemon).then((item) => {
