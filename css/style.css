@@ -1,5 +1,5 @@
 :root {
-  --primary-color: rgb(236, 225, 219);
+  --primary-color: rgb(252, 245, 245);
   --secondary-color: red;
   --body-font-size: 25px;
   --body-margin: 30px;
@@ -20,9 +20,6 @@
 
 body {
   background-color: var(--primary-color);
-  font-size: var(--body-font-size);
-  margin: var(--body-margin);
-
   text-align: center;
 }
 .list-group {
