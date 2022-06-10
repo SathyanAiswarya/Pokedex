@@ -7,6 +7,17 @@
   --button-width: 100px;
   --button-height: 50px;
 }
+/*------------------------------------ Navigation --------------------- */
+.navbar-brand {
+  width: 250px;
+  height: 85px;
+}
+.navbar-nav {
+  color: azure;
+  font-size: 20px;
+}
+/*----------------------------------*/
+
 body {
   background-color: var(--primary-color);
   font-size: var(--body-font-size);
@@ -18,10 +29,14 @@ body {
   color: var(--secondary-color);
   width: var(--button-width);
   height: var(--button-height);
+.list-group {
+  list-style: none;
 }
 .container {
   display: flex;
   justify-content: center;
+li {
+  padding: 5px;
 }
 .pokemon_list {
   /* padding: var(--body-padding); */
@@ -32,6 +47,8 @@ body {
   grid-gap: 10px;
   grid-template-columns: 150px 150px 150px 150px 150px 150px;
   grid-gap: 20px;
+.btn {
+  text-align: center;
 }
 
 @media all and (max-width: 500px) {
