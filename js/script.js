@@ -70,6 +70,7 @@ let pokemonRepository = (() => {
     modalBody.append(pokemonImage);
     modalBody.append(pokemonHeight);
 
+  }
 
 
   function hideModal() {
