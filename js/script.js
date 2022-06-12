@@ -38,7 +38,9 @@ let pokemonRepository = (() => {
     let button = document.createElement('button');
     let pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     button.innerText = pokemonName;
-    button.classList.add('btn' , 'btn-secondary', 'btn-lg', 'btn-block','list-group-item' ,'list-group-item-action','list-group-item-danger');
+    button.classList.add('btn', 'btn-secondary', 'btn-lg', 'btn-block', 'list-group-item', 'list-group-item-action', 'list-group-item-danger');
+    button.dataset.toggle = 'modal';
+    button.dataset.target = '#exampleModal';
     listItem.appendChild(button);
     pokemonList.appendChild(listItem);
 
