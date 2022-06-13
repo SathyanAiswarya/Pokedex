@@ -72,28 +72,6 @@ let pokemonRepository = (() => {
 
   }
 
-
-  function hideModal() {
-    let modalContainer = document.querySelector('.modal-container')
-    modalContainer.classList.remove("is-visible");
-    modalContainer.parentElement.removeChild(modalContainer);
-
-  }
-
-  window.addEventListener('keydown', (e) => {
-    let modalContainer = document.querySelector('.modal-container');
-    if (e.key === 'Escape' && modalContainer) {
-      hideModal();
-    } // for escape key
-  });
-
-  window.addEventListener('click', (e) => {
-    let modalContainer = document.querySelector('.modal-container');
-    if (modalContainer && !modalContainer.contains(e.target) && (e.tagert !== modalContainer)) {
-      hideModal();
-    } // for outside click
-  });
-
   const showDetails = (pokemon) => {
     return loadDetails(pokemon).then((item) => {
       return item;
